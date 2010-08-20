@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require 'organize'
+puts 'Organize!'
