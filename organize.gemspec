@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ['Alexander Kern']
   s.email       = ['alex@kernul.com']
-  s.homepage    = 'http://rubygems.org/gems/organize'
+  s.homepage    = 'http://github.com/CapnKernul/organize'
   s.summary     = 'Organize your Mac filesystem'
   s.description = 'Creates directories and links to manage your Mac consistently'
   
