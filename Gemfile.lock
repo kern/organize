@@ -20,6 +20,7 @@ GEM
     rspec-expectations (2.0.0.beta.19)
       diff-lcs (>= 1.1.2)
     rspec-mocks (2.0.0.beta.19)
+    watchr (0.7)
 
 PLATFORMS
   ruby
@@ -29,3 +30,4 @@ DEPENDENCIES
   bundler (>= 1.0.0.rc.5)
   organize!
   rspec (>= 2.0.0.beta.19)
+  watchr (~> 0.6)
