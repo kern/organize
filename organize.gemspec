@@ -17,9 +17,10 @@ Gem::Specification.new do |s|
   
   s.add_development_dependency 'bundler', '>= 1.0.0.rc.5'
   s.add_development_dependency 'rspec', '>= 2.0.0.beta.19'
+  s.add_development_dependency 'watchr', '~> 0.6'
   s.add_development_dependency 'bourne'
   
   s.files        = `git ls-files`.split("\n")
-  s.executables  = `git ls-files`.split("\n").select{|f| f =~ /^bin/}
+  s.executables  = `git ls-files`.split("\n").map {|f| f[%r{^bin/(.*)}, 1]}.compact
   s.require_path = 'lib'
 end
