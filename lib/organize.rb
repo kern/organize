@@ -1,3 +1,5 @@
 module Organize
-  # Your code goes here...
+  autoload :Project, 'organize/project'
+  autoload :Runner, 'organize/runner'
+  autoload :Version, 'organize/version'
 end

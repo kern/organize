@@ -2,16 +2,21 @@ PATH
   remote: .
   specs:
     organize (0.1.0)
+      optitron (~> 0.1)
 
 GEM
   remote: http://rubygems.org/
   specs:
-    bourne (1.0)
-      mocha (= 0.9.8)
+    callsite (0.0.4)
+    derickbailey-notamock (0.0.1)
+      rspec (>= 1.2.9)
     diff-lcs (1.1.2)
-    mocha (0.9.8)
-      rake
-    rake (0.8.7)
+    fakefs (0.2.1)
+    optitron (0.1.7)
+      callsite (= 0.0.4)
+      ruby2ruby (= 1.2.4)
+      ruby_parser (>= 2.0)
+      sexp_processor (= 3.0.4)
     rspec (2.0.0.beta.19)
       rspec-core (= 2.0.0.beta.19)
       rspec-expectations (= 2.0.0.beta.19)
@@ -20,14 +25,22 @@ GEM
     rspec-expectations (2.0.0.beta.19)
       diff-lcs (>= 1.1.2)
     rspec-mocks (2.0.0.beta.19)
+    ruby2ruby (1.2.4)
+      ruby_parser (~> 2.0)
+      sexp_processor (~> 3.0)
+    ruby_parser (2.0.4)
+      sexp_processor (~> 3.0)
+    sexp_processor (3.0.4)
     watchr (0.7)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  bourne
-  bundler (>= 1.0.0.rc.5)
+  bundler (~> 1.0)
+  derickbailey-notamock (~> 0.0.1)
+  fakefs (~> 0.2)
+  optitron (~> 0.1)
   organize!
-  rspec (>= 2.0.0.beta.19)
+  rspec (~> 2.0)
   watchr (~> 0.6)
