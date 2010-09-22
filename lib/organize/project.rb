@@ -39,6 +39,10 @@ module Organize
       File.join(prefix, 'Archive')
     end
     
+    def todo_path
+      File.join(path, 'TODO')
+    end
+    
     def complete_todos
       todos.select { |todo| todo.complete? }
     end

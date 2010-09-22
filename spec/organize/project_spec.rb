@@ -56,7 +56,7 @@ describe Organize::Project do
     it 'should combine the prefix and name' do
       project.should have_received(:prefix)
       project.should have_received(:name)
-      subject.should == '~/Projects/Foo'
+      should == '~/Projects/Foo'
     end
   end
   
@@ -70,7 +70,7 @@ describe Organize::Project do
     
     it 'should tack on Archive to the end of the path' do
       project.should have_received(:path)
-      subject.should == '~/Projects/Foo/Archive'
+      should == '~/Projects/Foo/Archive'
     end
   end
   
@@ -85,7 +85,7 @@ describe Organize::Project do
     it 'should tack on the name to the end of the shared path' do
       project.should have_received(:shared_prefix)
       project.should have_received(:name)
-      subject.should == '~/Dropbox/Foo'
+      should == '~/Dropbox/Foo'
     end
   end
   
@@ -99,7 +99,7 @@ describe Organize::Project do
     
     it 'should tack on Shared to the end of the path' do
       project.should have_received(:path)
-      subject.should == '~/Projects/Foo/Shared'
+      should == '~/Projects/Foo/Shared'
     end
   end
   
@@ -113,7 +113,7 @@ describe Organize::Project do
     
     it 'should tack on Archive to the end of the prefix' do
       project.should have_received(:prefix)
-      subject.should == '~/Projects/Archive'
+      should == '~/Projects/Archive'
     end
   end
   
@@ -136,6 +136,20 @@ describe Organize::Project do
       lambda {
         subject.todos = [complete_todo]
       }.should change(subject, :todos).to([complete_todo])
+    end
+    
+    describe '#todo_path' do
+      before do
+        project.track_methods :path
+        subject # Run the subject immediately
+      end
+      
+      subject { project.todo_path }
+      
+      it 'should tack on TODO to the end of the path' do
+        project.should have_received(:path)
+        should == '~/Projects/Foo/TODO'
+      end
     end
     
     describe '#complete_todos' do
