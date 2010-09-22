@@ -17,12 +17,12 @@ describe Organize::TODOItem do
   end
   
   describe 'completeness' do
-    context 'when complete is false' do
+    context 'when false' do
       it { should be_incomplete }
       it { should_not be_complete }
     end
   
-    context 'when complete is true' do
+    context 'when true' do
       subject { Organize::TODOItem.new 'Test item', :complete => true }
     
       it { should_not be_incomplete }
@@ -33,6 +33,26 @@ describe Organize::TODOItem do
       lambda {
         subject.complete = true
       }.should change(subject, :complete).from(false).to(true)
+    end
+  end
+  
+  describe 'tags' do
+    context 'when created without tags' do
+      its(:tags) { should be_empty }
+    end
+    
+    context 'when created with tags' do
+      subject { Organize::TODOItem.new 'Foo', :tags => ['test', 'tag'] }
+      
+      it 'should store those tags' do
+        subject.tags.should include('test', 'tag')
+      end
+    end
+    
+    it 'should be mutable' do
+      lambda {
+        subject.tags = ['test']
+      }.should change(subject, :tags).from([]).to(['test'])
     end
   end
 end

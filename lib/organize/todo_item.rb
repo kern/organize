@@ -1,9 +1,10 @@
 module Organize
   class TODOItem
     
-    attr_accessor :name, :complete
+    attr_accessor :name, :complete, :tags
     DEFAULTS = {
-      :complete => false
+      :complete => false,
+      :tags => []
     }
     
     def initialize(name, options = {})
@@ -11,6 +12,7 @@ module Organize
       
       options = DEFAULTS.merge(options)
       self.complete = options[:complete]
+      self.tags = options[:tags]
     end
     
     def complete?
