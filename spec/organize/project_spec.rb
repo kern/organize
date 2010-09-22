@@ -16,8 +16,13 @@ describe Organize::Project do
     its(:shared_prefix) { should == '~/Dropbox' }
   end
   
+  context 'when created without TODOs' do
+    its(:todos) { should be_empty }
+  end
+  
   context 'when created with a prefix' do
     subject { Organize::Project.new 'Foo', :prefix => '~/Prefix' }
+    
     it 'should use that prefix instead of the default one' do
       subject.prefix.should == '~/Prefix'
     end
@@ -25,8 +30,18 @@ describe Organize::Project do
   
   context 'when created with a shared prefix' do
     subject { Organize::Project.new 'Foo', :shared_prefix => '~/Shared' }
+    
     it 'should use that prefix instead of the default one' do
       subject.shared_prefix.should == '~/Shared'
+    end
+  end
+  
+  context 'when created with a TODO' do
+    let(:todo) { Organize::TODO.new 'Bar' }
+    subject { Organize::Project.new 'Foo', :todos => [todo] }
+    
+    it 'should store the TODOs' do
+      subject.todos.should include(todo)
     end
   end
   
@@ -99,6 +114,52 @@ describe Organize::Project do
     it 'should tack on Archive to the end of the prefix' do
       project.should have_received(:prefix)
       subject.should == '~/Projects/Archive'
+    end
+  end
+  
+  describe 'TODOs' do
+    let(:complete_todo) { Organize::TODO.new 'Bar', :status => :complete }
+    let(:incomplete_todo) { Organize::TODO.new 'Bar', :status => :incomplete }
+    let(:starred_todo) { Organize::TODO.new 'Bar', :status => :starred }
+    
+    let(:project) do
+      Organize::Project.new 'Foo', :todos => [
+        complete_todo,
+        incomplete_todo,
+        starred_todo
+      ]
+    end
+    
+    subject { project }
+    
+    it 'should be mutable' do
+      lambda {
+        subject.todos = [complete_todo]
+      }.should change(subject, :todos).to([complete_todo])
+    end
+    
+    describe '#complete_todos' do
+      subject { project.complete_todos }
+      
+      it 'should return the complete TODOs' do
+        should include(complete_todo)
+      end
+    end
+    
+    describe '#incomplete_todos' do
+      subject { project.incomplete_todos }
+      
+      it 'should return the incomplete TODOs' do
+        should include(incomplete_todo, starred_todo)
+      end
+    end
+    
+    describe '#starred_todos' do
+      subject { project.starred_todos }
+      
+      it 'should return the starred TODOs' do
+        should include(starred_todo)
+      end
     end
   end
 end

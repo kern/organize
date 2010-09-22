@@ -1,5 +1,5 @@
 module Organize
-  class TODOItem
+  class TODO
     
     attr_accessor :name, :status, :tags
     DEFAULTS = {
@@ -23,12 +23,15 @@ module Organize
       !complete?
     end
     
+    def starred?
+      status == :starred
+    end
+    
     def to_hash
       {
-        name => {
-          :status => status,
-          :tags => tags
-        }
+        :name => name,
+        :status => status,
+        :tags => tags
       }
     end
   end

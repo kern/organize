@@ -1,7 +1,6 @@
 module Organize
   autoload :Project, 'organize/project'
   autoload :Runner, 'organize/runner'
-  autoload :TODOList, 'organize/todo_list'
-  autoload :TODOItem, 'organize/todo_item'
+  autoload :TODO, 'organize/todo'
   autoload :Version, 'organize/version'
 end

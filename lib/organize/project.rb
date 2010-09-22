@@ -2,19 +2,21 @@ module Organize
   class Project
     
     attr_reader :prefix, :shared_prefix
-    attr_accessor :name
+    attr_accessor :name, :todos
     
     DEFAULTS = {
       :prefix => '~/Projects',
-      :shared_prefix => '~/Dropbox'
+      :shared_prefix => '~/Dropbox',
+      :todos => []
     }
     
     def initialize(name, options = {})
-      @name = name
+      self.name = name
       
       options = DEFAULTS.merge(options)
       @prefix = options[:prefix]
       @shared_prefix = options[:shared_prefix]
+      self.todos = options[:todos]
     end
     
     def path
@@ -35,6 +37,18 @@ module Organize
     
     def project_archive_path
       File.join(prefix, 'Archive')
+    end
+    
+    def complete_todos
+      todos.select { |todo| todo.complete? }
+    end
+    
+    def incomplete_todos
+      todos.select { |todo| todo.incomplete? }
+    end
+    
+    def starred_todos
+      todos.select { |todo| todo.starred? }
     end
   end
 end
