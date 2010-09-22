@@ -1,9 +1,9 @@
 module Organize
   class TODOItem
     
-    attr_accessor :name, :complete, :tags
+    attr_accessor :name, :status, :tags
     DEFAULTS = {
-      :complete => false,
+      :status => :incomplete,
       :tags => []
     }
     
@@ -11,16 +11,25 @@ module Organize
       self.name = name
       
       options = DEFAULTS.merge(options)
-      self.complete = options[:complete]
+      self.status = options[:status]
       self.tags = options[:tags]
     end
     
     def complete?
-      @complete
+      status == :complete
     end
     
     def incomplete?
       !complete?
+    end
+    
+    def to_hash
+      {
+        name => {
+          :status => status,
+          :tags => tags
+        }
+      }
     end
   end
 end
