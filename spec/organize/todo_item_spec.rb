@@ -16,15 +16,23 @@ describe Organize::TODOItem do
     end
   end
   
-  context 'when completeness is false' do
-    it { should be_incomplete }
-    it { should_not be_complete }
-  end
+  describe 'completeness' do
+    context 'when complete is false' do
+      it { should be_incomplete }
+      it { should_not be_complete }
+    end
   
-  context 'when completeness is true' do
-    subject { Organize::TODOItem.new 'Test item', :complete => true }
+    context 'when complete is true' do
+      subject { Organize::TODOItem.new 'Test item', :complete => true }
     
-    it { should_not be_incomplete }
-    it { should be_complete }
+      it { should_not be_incomplete }
+      it { should be_complete }
+    end
+    
+    it 'should be mutable' do
+      lambda {
+        subject.complete = true
+      }.should change(subject, :complete).from(false).to(true)
+    end
   end
 end
