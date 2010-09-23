@@ -176,4 +176,20 @@ describe Organize::Project do
       end
     end
   end
+  
+  describe '#make' do
+    subject { project.make }
+    
+    context 'when the prefix does not exist' do
+      it 'should be created'
+      it 'should create the project directory'
+    end
+    
+    context 'when the prefix does exist' do
+      it 'should not delete the other files/directories in the prefix'
+      it 'should only create the project directory'
+    end
+    
+    # TODO: Add the rest of the examples.
+  end
 end
