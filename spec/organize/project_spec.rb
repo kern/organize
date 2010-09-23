@@ -140,15 +140,15 @@ describe Organize::Project do
     
     describe '#todo_path' do
       before do
-        project.track_methods :path
+        project.track_methods :shared_path
         subject # Run the subject immediately
       end
       
       subject { project.todo_path }
       
-      it 'should tack on TODO to the end of the path' do
-        project.should have_received(:path)
-        should == '~/Projects/Foo/TODO'
+      it 'should tack on TODO to the end of the shared path' do
+        project.should have_received(:shared_path)
+        should == '~/Dropbox/Foo/TODO'
       end
     end
     

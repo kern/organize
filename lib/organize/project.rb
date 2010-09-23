@@ -40,7 +40,7 @@ module Organize
     end
     
     def todo_path
-      File.join(path, 'TODO')
+      File.join(shared_path, 'TODO')
     end
     
     def complete_todos
