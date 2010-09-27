@@ -181,13 +181,69 @@ describe Organize::Project do
     subject { project.make }
     
     context 'when the prefix does not exist' do
-      it 'should be created'
-      it 'should create the project directory'
+      before do
+        FileUtils.rm_rf(project.prefix)
+        subject # Run the subject immediately
+      end
+      
+      it 'should be created' do
+        File.directory?(project.prefix).should be_true
+      end
+      
+      it 'should create the project directory' do
+        File.directory?(project.path).should be_true
+      end
     end
     
     context 'when the prefix does exist' do
-      it 'should not delete the other files/directories in the prefix'
-      it 'should only create the project directory'
+      let(:other_project_path) { File.join(project.prefix, 'Bar') }
+      
+      before do
+        FileUtils.rm_rf(project.prefix)
+        FileUtils.mkdir_p(other_project_path)
+        subject # Run the subject immediately
+      end
+      
+      it 'should not delete the other files/directories in the prefix' do
+        File.directory?(other_project_path).should be_true
+      end
+      
+      it 'should only create the project directory' do
+        File.directory?(project.path).should be_true
+      end
+    end
+    
+    context 'when the shared prefix does not exist' do
+      before do
+        FileUtils.rm_rf(project.shared_prefix)
+        subject # Run the subject immediately
+      end
+      
+      it 'should be created' do
+        File.directory?(project.shared_prefix).should be_true
+      end
+      
+      it 'should create the project directory' do
+        File.directory?(project.shared_path).should be_true
+      end
+    end
+    
+    context 'when the shared prefix does exist' do
+      let(:other_shared_path) { File.join(project.shared_prefix, 'Bar') }
+      
+      before do
+        FileUtils.rm_rf(project.shared_prefix)
+        FileUtils.mkdir_p(other_shared_path)
+        subject # Run the subject immediately
+      end
+      
+      it 'should not delete the other files/directories in the shared prefix' do
+        File.directory?(other_shared_path).should be_true
+      end
+      
+      it 'should only create the project shared directory' do
+        File.directory?(project.shared_path).should be_true
+      end
     end
     
     # TODO: Add the rest of the examples.

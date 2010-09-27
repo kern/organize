@@ -54,5 +54,10 @@ module Organize
     def starred_todos
       todos.select { |todo| todo.starred? }
     end
+    
+    def make
+      FileUtils.mkdir_p(path)
+      FileUtils.mkdir_p(shared_path)
+    end
   end
 end
