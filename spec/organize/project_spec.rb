@@ -48,7 +48,7 @@ describe Organize::Project do
   describe '#path' do
     before do
       project.track_methods :prefix, :name
-      subject # Run the subject immediately
+      subject
     end
     
     subject { project.path }
@@ -63,7 +63,7 @@ describe Organize::Project do
   describe '#archive_path' do
     before do
       project.track_methods :path
-      subject # Run the subject immediately
+      subject
     end
     
     subject { project.archive_path }
@@ -77,7 +77,7 @@ describe Organize::Project do
   describe '#shared_path' do
     before do
       project.track_methods :shared_prefix, :name
-      subject # Run the subject immediately
+      subject
     end
     
     subject { project.shared_path }
@@ -92,7 +92,7 @@ describe Organize::Project do
   describe '#shared_link_path' do
     before do
       project.track_methods :path
-      subject # Run the subject immediately
+      subject
     end
     
     subject { project.shared_link_path }
@@ -106,7 +106,7 @@ describe Organize::Project do
   describe '#project_archive_path' do
     before do
       project.track_methods :prefix
-      subject # Run the subject immediately
+      subject
     end
     
     subject { project.project_archive_path }
@@ -141,7 +141,7 @@ describe Organize::Project do
     describe '#todo_path' do
       before do
         project.track_methods :shared_path
-        subject # Run the subject immediately
+        subject
       end
       
       subject { project.todo_path }
@@ -178,13 +178,15 @@ describe Organize::Project do
   end
   
   describe '#make' do
+    before do
+      FileUtils.rm_rf(project.prefix)
+      FileUtils.rm_rf(project.shared_prefix)
+    end
+    
     subject { project.make }
     
     context 'when the prefix does not exist' do
-      before do
-        FileUtils.rm_rf(project.prefix)
-        subject # Run the subject immediately
-      end
+      before { subject }
       
       it 'should be created' do
         File.directory?(project.prefix).should be_true
@@ -199,9 +201,8 @@ describe Organize::Project do
       let(:other_project_path) { File.join(project.prefix, 'Bar') }
       
       before do
-        FileUtils.rm_rf(project.prefix)
         FileUtils.mkdir_p(other_project_path)
-        subject # Run the subject immediately
+        subject
       end
       
       it 'should not delete the other files/directories in the prefix' do
@@ -214,10 +215,7 @@ describe Organize::Project do
     end
     
     context 'when the shared prefix does not exist' do
-      before do
-        FileUtils.rm_rf(project.shared_prefix)
-        subject # Run the subject immediately
-      end
+      before { subject }
       
       it 'should be created' do
         File.directory?(project.shared_prefix).should be_true
@@ -232,9 +230,8 @@ describe Organize::Project do
       let(:other_shared_path) { File.join(project.shared_prefix, 'Bar') }
       
       before do
-        FileUtils.rm_rf(project.shared_prefix)
         FileUtils.mkdir_p(other_shared_path)
-        subject # Run the subject immediately
+        subject
       end
       
       it 'should not delete the other files/directories in the shared prefix' do
@@ -246,6 +243,48 @@ describe Organize::Project do
       end
     end
     
-    # TODO: Add the rest of the examples.
+    context 'when the shared link does not exist' do
+      before do
+        FileUtils.mkdir_p(project.path)
+        subject
+      end
+      
+      it 'should be created and symlinked to the shared path' do
+        File.symlink?(project.shared_link_path).should be_true
+        File.readlink(project.shared_link_path).should == project.shared_path
+      end
+    end
+    
+    context 'when the shared link already exists' do
+      before do
+        FileUtils.mkdir_p(project.shared_link_path)
+        subject
+      end
+      
+      it 'should be left alone' do
+        File.symlink?(project.shared_link_path).should be_false
+      end
+    end
+    
+    it 'should write the TODOs to the TODO path' do
+      project.track_methods :write_todos
+      subject
+      project.should have_received(:write_todos)
+    end
+  end
+  
+  describe '#write_todos' do
+    let(:todo) { Organize::TODO.new 'Bar' }
+    let(:project) { Organize::Project.new 'Foo', :todos => [todo] }
+    subject { project.write_todos }
+    before { subject }
+    
+    it 'should write the YAMLified TODOs to the TODO path' do
+      YAML.load_file(project.todo_path).should == [{'name' => 'Bar', 'tags' => [], 'status' => 'incomplete'}]
+    end
+  end
+  
+  describe '#load_todos' do
+    # TODO: Implement me!
   end
 end

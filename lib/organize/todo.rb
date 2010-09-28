@@ -29,9 +29,9 @@ module Organize
     
     def to_hash
       {
-        :name => name,
-        :status => status,
-        :tags => tags
+        'name' => name,
+        'status' => status.to_s,
+        'tags' => tags
       }
     end
   end

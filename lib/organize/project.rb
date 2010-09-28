@@ -58,6 +58,18 @@ module Organize
     def make
       FileUtils.mkdir_p(path)
       FileUtils.mkdir_p(shared_path)
+      
+      unless File.exists?(shared_link_path)
+        FileUtils.ln_s(shared_path, shared_link_path)
+      end
+      
+      write_todos
+    end
+    
+    def write_todos
+      File.open(todo_path, 'w') do |f|
+        YAML.dump(todos.map(&:to_hash), f)
+      end
     end
   end
 end

@@ -70,7 +70,7 @@ describe Organize::TODO do
     subject { todo.to_hash }
     
     it 'should have the correct name' do
-      subject[:name].should == 'Foo'
+      subject['name'].should == 'Foo'
     end
     
     it 'should have the correct status' do
@@ -78,13 +78,13 @@ describe Organize::TODO do
         todo.status = status
         subject = todo.to_hash # Fake the regenration of the #subject
         
-        subject[:status].should == status
+        subject['status'].should == status.to_s
       end
     end
     
     context 'when the todo has no tags' do
       it 'should have no tags in the hash' do
-        subject[:tags].should be_empty
+        subject['tags'].should be_empty
       end
     end
     
@@ -92,7 +92,7 @@ describe Organize::TODO do
       before { todo.tags = ['test'] }
       
       it 'should include those tags in the hash' do
-        subject[:tags].should include('test')
+        subject['tags'].should include('test')
       end
     end
   end
