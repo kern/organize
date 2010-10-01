@@ -16,10 +16,6 @@ describe Organize::Project do
     its(:shared_prefix) { should == '~/Dropbox' }
   end
   
-  context 'when created without TODOs' do
-    its(:todos) { should be_empty }
-  end
-  
   context 'when created with a prefix' do
     subject { Organize::Project.new 'Foo', :prefix => '~/Prefix' }
     
@@ -33,15 +29,6 @@ describe Organize::Project do
     
     it 'should use that prefix instead of the default one' do
       subject.shared_prefix.should == '~/Shared'
-    end
-  end
-  
-  context 'when created with a TODO' do
-    let(:todo) { Organize::TODO.new 'Bar' }
-    subject { Organize::Project.new 'Foo', :todos => [todo] }
-    
-    it 'should store the TODOs' do
-      subject.todos.should include(todo)
     end
   end
   
@@ -117,68 +104,8 @@ describe Organize::Project do
     end
   end
   
-  describe 'TODOs' do
-    let(:complete_todo) { Organize::TODO.new 'Bar', :status => :complete }
-    let(:incomplete_todo) { Organize::TODO.new 'Bar', :status => :incomplete }
-    let(:starred_todo) { Organize::TODO.new 'Bar', :status => :starred }
-    
-    let(:project) do
-      Organize::Project.new 'Foo', :todos => [
-        complete_todo,
-        incomplete_todo,
-        starred_todo
-      ]
-    end
-    
-    subject { project }
-    
-    it 'should be mutable' do
-      lambda {
-        subject.todos = [complete_todo]
-      }.should change(subject, :todos).to([complete_todo])
-    end
-    
-    describe '#todo_path' do
-      before do
-        project.track_methods :shared_path
-        subject # Run the subject immediately
-      end
-      
-      subject { project.todo_path }
-      
-      it 'should tack on TODO to the end of the shared path' do
-        project.should have_received(:shared_path)
-        should == '~/Dropbox/Foo/TODO'
-      end
-    end
-    
-    describe '#complete_todos' do
-      subject { project.complete_todos }
-      
-      it 'should return the complete TODOs' do
-        should include(complete_todo)
-      end
-    end
-    
-    describe '#incomplete_todos' do
-      subject { project.incomplete_todos }
-      
-      it 'should return the incomplete TODOs' do
-        should include(incomplete_todo, starred_todo)
-      end
-    end
-    
-    describe '#starred_todos' do
-      subject { project.starred_todos }
-      
-      it 'should return the starred TODOs' do
-        should include(starred_todo)
-      end
-    end
-  end
-  
-  describe '#make' do
-    subject { project.make }
+  describe '#create' do
+    subject { project.create }
     
     context 'when the prefix does not exist' do
       before do
@@ -245,7 +172,15 @@ describe Organize::Project do
         File.directory?(project.shared_path).should be_true
       end
     end
+  end
+  # TODO: Make the shared and archive path automatically deleted.
+  
+  describe '#archive' do
+    subject { project.archive }
+    before { subject }
     
-    # TODO: Add the rest of the examples.
+    it 'should move the project to the project archive folder' do
+      # TODO: Implement me!
+    end
   end
 end
