@@ -39,6 +39,14 @@ module Organize
     def create
       FileUtils.mkdir_p(path)
       FileUtils.mkdir_p(shared_path)
+      
+      unless File.exists?(shared_link_path)
+        FileUtils.ln_s(shared_path, shared_link_path)
+      end
+    end
+    
+    def archive
+      
     end
   end
 end
