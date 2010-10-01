@@ -39,6 +39,7 @@ module Organize
     def create
       FileUtils.mkdir_p(path)
       FileUtils.mkdir_p(shared_path)
+      FileUtils.mkdir_p(archive_path)
       FileUtils.mkdir_p(project_archive_path)
       
       unless File.exists?(shared_link_path)

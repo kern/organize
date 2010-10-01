@@ -170,6 +170,14 @@ describe Organize::Project do
       end
     end
     
+    context 'when the archive path does not exist' do
+      before { subject }
+      
+      it 'should be created' do
+        File.directory?(project.archive_path).should be_true
+      end
+    end
+    
     context 'when the project archive path does not exist' do
       before { subject }
       
