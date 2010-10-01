@@ -169,8 +169,15 @@ describe Organize::Project do
         File.directory?(project.shared_path).should be_true
       end
     end
+    
+    context 'when the project archive path does not exist' do
+      before { subject }
+      
+      it 'should be created' do
+        File.directory?(project.project_archive_path).should be_true
+      end
+    end
   end
-  # TODO: Make the shared and archive path automatically deleted.
   
   describe '#archive' do
     before do
@@ -178,7 +185,7 @@ describe Organize::Project do
       FileUtils.rm_rf(project.shared_prefix)
       FileUtils.rm_rf(project.project_archive_path)
       
-      project.make
+      project.create
       subject
     end
     
