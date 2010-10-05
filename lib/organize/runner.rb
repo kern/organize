@@ -3,7 +3,7 @@ require 'yaml'
 
 module Organize
   class Runner < Optitron::CLI
-    desc 'Install stuff'
+    desc 'Install organize to your home directory.'
     def install(prefix = '~/Projects', shared_prefix = '~/Dropbox', inbox = '~/Desktop')
       FileUtils.mkdir_p(prefix)
       FileUtils.mkdir_p(File.join(prefix, 'Archive'))
