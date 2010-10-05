@@ -15,12 +15,12 @@ module Organize
         FileUtils.ln_s("~/#{directory}", File.join(prefix, 'Other', directory))
       end
       
-      File.open('~/.organize', 'w+') do |f|
-        f.write(YAML::dump({
-          'prefix' => prefix,
-          'shared_prefix' => shared_prefix
-        }))
-      end
+      config = {
+        'prefix' => prefix,
+        'shared_prefix' => shared_prefix
+      }
+      
+      File.open('~/.organize', 'w+') { |f| f.write(YAML::dump(config)) }
     end
   end
 end
