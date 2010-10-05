@@ -204,4 +204,21 @@ describe Organize::Project do
       File.directory?(project.path).should be_false
     end
   end
+  
+  describe '#delete' do
+    before do
+      FileUtils.rm_rf(project.prefix)
+      FileUtils.rm_rf(project.shared_prefix)
+      FileUtils.rm_rf(project.project_archive_path)
+      
+      project.create
+      subject
+    end
+    
+    subject { project.delete }
+    
+    it 'should delete the project' do
+      File.directory?(project.path).should be_false
+    end
+  end
 end

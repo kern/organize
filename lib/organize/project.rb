@@ -53,5 +53,9 @@ module Organize
       FileUtils.cp_r(path, project_archive_path)
       FileUtils.rm_rf(path)
     end
+    
+    def delete
+      FileUtils.rm_rf(path)
+    end
   end
 end
