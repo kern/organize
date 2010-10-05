@@ -50,20 +50,6 @@ describe Organize::Runner do
     end
   end
   
-  describe '#path' do
-    subject { runner.path 'Foo' }
-    
-    before do
-      runner.install
-      runner.create 'Foo'
-    end
-    
-    it 'should return the project directory' do
-      stdout = capture(:stdout) { subject }
-      stdout.should == '~/Projects/Foo'
-    end
-  end
-  
   describe '#prefix' do
     subject { runner.prefix }
     before { runner.install }

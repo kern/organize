@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
   s.authors     = ['Alexander Kern']
   s.email       = ['alex@kernul.com']
   s.homepage    = 'http://github.com/CapnKernul/organize'
-  s.summary     = 'Organize your Mac filesystem'
-  s.description = 'Creates directories and links to manage your Mac consistently'
+  s.summary     = 'Organize your Mac filesystem.'
+  s.description = 'Creates directories and links to manage your Mac consistently.'
   
   s.required_rubygems_version = '~> 1.3.6'
   s.rubyforge_project         = 'organize'

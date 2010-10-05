@@ -30,12 +30,6 @@ module Organize
       project.create
     end
     
-    desc 'Gets the path for a specific project.'
-    def path(name)
-      prefix = YAML::load_file('~/.organize')['prefix']
-      print File.join(prefix, name)
-    end
-    
     desc 'Gets the prefix.'
     def prefix
       print YAML::load_file('~/.organize')['prefix']
