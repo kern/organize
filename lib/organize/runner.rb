@@ -1,4 +1,5 @@
 require 'optitron'
+require 'yaml'
 
 module Organize
   class Runner < Optitron::CLI
@@ -10,11 +11,16 @@ module Organize
       FileUtils.mkdir_p(File.join(prefix, 'Other'))
       FileUtils.ln_s(inbox, File.join(prefix, 'Inbox'))
       
-      ['Documents', 'Movies', 'Music', 'Pictures',  'Public', 'Sites'].each do |folder|
-        FileUtils.ln_s("~/#{folder}", File.join(prefix, 'Other', folder))
+      ['Documents', 'Movies', 'Music', 'Pictures',  'Public', 'Sites'].each do |directory|
+        FileUtils.ln_s("~/#{directory}", File.join(prefix, 'Other', directory))
       end
       
-      # TODO: Make this method create the .organize file.
+      File.open('~/.organize', 'w+') do |f|
+        f.write(YAML::dump({
+          'prefix' => prefix,
+          'shared_prefix' => shared_prefix
+        }))
+      end
     end
   end
 end
