@@ -186,39 +186,4 @@ describe Organize::Project do
       end
     end
   end
-  
-  describe '#archive' do
-    before do
-      FileUtils.rm_rf(project.prefix)
-      FileUtils.rm_rf(project.shared_prefix)
-      FileUtils.rm_rf(project.project_archive_path)
-      
-      project.create
-      subject
-    end
-    
-    subject { project.archive }
-    
-    it 'should move the project to the project archive folder' do
-      File.directory?(File.join(project.project_archive_path, project.name)).should be_true
-      File.directory?(project.path).should be_false
-    end
-  end
-  
-  describe '#delete' do
-    before do
-      FileUtils.rm_rf(project.prefix)
-      FileUtils.rm_rf(project.shared_prefix)
-      FileUtils.rm_rf(project.project_archive_path)
-      
-      project.create
-      subject
-    end
-    
-    subject { project.delete }
-    
-    it 'should delete the project' do
-      File.directory?(project.path).should be_false
-    end
-  end
 end

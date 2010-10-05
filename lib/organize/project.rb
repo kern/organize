@@ -46,16 +46,5 @@ module Organize
         FileUtils.ln_s(shared_path, shared_link_path)
       end
     end
-    
-    # Safest way I can think of doing a move. Plus Ruby (conveniently) doesn't
-    # have a FileUtils#mv_r method. Nice job Minero Aoki.
-    def archive
-      FileUtils.cp_r(path, project_archive_path)
-      FileUtils.rm_rf(path)
-    end
-    
-    def delete
-      FileUtils.rm_rf(path)
-    end
   end
 end
