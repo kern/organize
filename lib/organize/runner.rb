@@ -24,12 +24,21 @@ module Organize
     end
     
     desc 'Creates a new project.'
-    def new(name)
+    def create(name)
       config = YAML::load_file '~/.organize'
       project = Project.new name, :prefix => config['prefix'], :shared_prefix => config['shared_prefix']
       project.create
-      
-      puts "#{name} created! :D"
+    end
+    
+    desc 'Gets the path for a specific project.'
+    def path(name)
+      prefix = YAML::load_file('~/.organize')['prefix']
+      print File.join(prefix, name)
+    end
+    
+    desc 'Gets the prefix.'
+    def prefix
+      print YAML::load_file('~/.organize')['prefix']
     end
   end
 end

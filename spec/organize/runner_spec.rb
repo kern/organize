@@ -36,4 +36,41 @@ describe Organize::Runner do
       }
     end
   end
+  
+  describe '#create' do
+    subject { runner.create 'Foo' }
+    
+    before do
+      runner.install
+      subject
+    end
+    
+    it 'should create the new project' do
+      File.directory?('~/Projects/Foo').should be_true
+    end
+  end
+  
+  describe '#path' do
+    subject { runner.path 'Foo' }
+    
+    before do
+      runner.install
+      runner.create 'Foo'
+    end
+    
+    it 'should return the project directory' do
+      stdout = capture(:stdout) { subject }
+      stdout.should == '~/Projects/Foo'
+    end
+  end
+  
+  describe '#prefix' do
+    subject { runner.prefix }
+    before { runner.install }
+    
+    it 'should return the prefix' do
+      stdout = capture(:stdout) { subject }
+      stdout.should == '~/Projects'
+    end
+  end
 end
