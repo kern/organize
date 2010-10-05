@@ -3,9 +3,10 @@ require 'optitron'
 module Organize
   class Runner < Optitron::CLI
     desc 'Install stuff'
-    opt 'force'
-    def install(file, source = ".")
-      puts "Installing #{file} from #{source.inspect} with params: #{params.inspect}"
+    def install(file, source = '.')
+      # TODO: Make this method create the prefix, shared prefix, the .organize
+      # file, the other folder (with all its symlinks), the Inbox -> Desktop
+      # folder, and project archive folder.
     end
   end
 end
