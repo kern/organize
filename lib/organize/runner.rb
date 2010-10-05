@@ -22,5 +22,14 @@ module Organize
       
       File.open('~/.organize', 'w+') { |f| f.write(YAML::dump(config)) }
     end
+    
+    desc 'Creates a new project.'
+    def new(name)
+      config = YAML::load_file '~/.organize'
+      project = Project.new name, :prefix => config['prefix'], :shared_prefix => config['shared_prefix']
+      project.create
+      
+      puts "#{name} created! :D"
+    end
   end
 end
