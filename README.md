@@ -66,7 +66,11 @@ You can make your life easier by adding a simple little function to your zsh.
 
     cd ~/Projects/$1;
 
-Ohhh yeahhh!
+If you save it as a short name like `p`, you can just do a simple little:
+
+    p FOSS
+
+to get to your FOSS project. Ohhh yeahhh!
 
 You can even make it autocomplete!
 
