@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     organize (0.1.0)
-      optitron (~> 0.1)
+      optitron (~> 0.2)
 
 GEM
   remote: http://rubygems.org/
@@ -14,11 +14,11 @@ GEM
     fakefs (0.2.1)
     infinity_test (0.2.0)
       watchr (>= 0.7)
-    optitron (0.1.7)
-      callsite (= 0.0.4)
-      ruby2ruby (= 1.2.4)
-      ruby_parser (>= 2.0)
-      sexp_processor (= 3.0.4)
+    optitron (0.2.0)
+      callsite (~> 0.0.4)
+      ruby2ruby (~> 1.2.4)
+      ruby_parser (~> 2.0)
+      sexp_processor (~> 3.0.4)
     rspec (2.0.0.beta.22)
       rspec-core (= 2.0.0.beta.22)
       rspec-expectations (= 2.0.0.beta.22)
@@ -29,12 +29,12 @@ GEM
     rspec-mocks (2.0.0.beta.22)
       rspec-core (= 2.0.0.beta.22)
       rspec-expectations (= 2.0.0.beta.22)
-    ruby2ruby (1.2.4)
+    ruby2ruby (1.2.5)
       ruby_parser (~> 2.0)
       sexp_processor (~> 3.0)
-    ruby_parser (2.0.4)
+    ruby_parser (2.0.5)
       sexp_processor (~> 3.0)
-    sexp_processor (3.0.4)
+    sexp_processor (3.0.5)
     watchr (0.7)
 
 PLATFORMS
@@ -45,7 +45,7 @@ DEPENDENCIES
   derickbailey-notamock (~> 0.0.1)
   fakefs (~> 0.2)
   infinity_test (~> 0.2)
-  optitron (~> 0.1)
+  optitron (~> 0.2)
   organize!
   rspec (= 2.0.0.beta.22)
   watchr (~> 0.6)

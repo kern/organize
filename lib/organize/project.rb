@@ -1,23 +1,16 @@
 module Organize
   class Project
     
-    attr_reader :prefix, :shared_prefix, :name
+    attr_reader :name
+    PREFIX = File.expand_path('~/Projects')
+    SHARED_PREFIX = File.expand_path('~/Dropbox')
     
-    DEFAULTS = {
-      :prefix => '~/Projects',
-      :shared_prefix => '~/Dropbox'
-    }
-    
-    def initialize(name, options = {})
+    def initialize(name)
       @name = name
-      
-      options = DEFAULTS.merge(options)
-      @prefix = options[:prefix]
-      @shared_prefix = options[:shared_prefix]
     end
     
     def path
-      File.join(prefix, name)
+      File.join(PREFIX, name)
     end
     
     def archive_path
@@ -25,7 +18,7 @@ module Organize
     end
     
     def shared_path
-      File.join(shared_prefix, name)
+      File.join(SHARED_PREFIX, name)
     end
     
     def shared_link_path
@@ -33,7 +26,7 @@ module Organize
     end
     
     def project_archive_path
-      File.join(prefix, 'Archive')
+      File.join(PREFIX, 'Archive')
     end
     
     def create
