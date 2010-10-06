@@ -34,10 +34,7 @@ module Organize
       FileUtils.mkdir_p(shared_path)
       FileUtils.mkdir_p(archive_path)
       FileUtils.mkdir_p(project_archive_path)
-      
-      unless File.exists?(shared_link_path)
-        FileUtils.ln_s(shared_path, shared_link_path)
-      end
+      FileUtils.ln_s(shared_path, shared_link_path) unless File.exists?(shared_link_path)
     end
   end
 end
