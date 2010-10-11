@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    organize (0.1.0)
+    organize (1.0.1)
       optitron (~> 0.2)
 
 GEM
@@ -47,5 +47,5 @@ DEPENDENCIES
   infinity_test (~> 0.2)
   optitron (~> 0.2)
   organize!
-  rspec (= 2.0.0.beta.22)
+  rspec (~> 2.0)
   watchr (~> 0.6)
