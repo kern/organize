@@ -32,14 +32,10 @@ projects like Areas of Responsibility. These are *large* goals in your life that
 won't be completed for a couple months or will never be completed. Don't make
 too many of them. I usually have around 13 or so.
 
-Inside of each project folder, there are two folders created for you
+Inside of each project folder, there is a single Shared folder created for you
 automatically. The Shared folder links to a folder in your
 [Dropbox](http://www.dropbox.com/) of the same name as the project. Anything
 that you'd like to share across multiple computers should be placed in here.
-
-The other folder is the Archive folder. Treat this like the Archive folder of
-Gmail. Don't delete things that you may possibly need later. Put them in the
-Archive for storage.
 
 Organize also creates a couple other folders. The Archive folder located in the
 root of the Projects folder are for old projects that you've completed but would

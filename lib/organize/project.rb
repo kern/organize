@@ -13,10 +13,6 @@ module Organize
       File.join(PREFIX, name)
     end
     
-    def archive_path
-      File.join(path, 'Archive')
-    end
-    
     def shared_path
       File.join(SHARED_PREFIX, name)
     end
@@ -32,7 +28,6 @@ module Organize
     def create
       FileUtils.mkdir_p(path)
       FileUtils.mkdir_p(shared_path)
-      FileUtils.mkdir_p(archive_path)
       FileUtils.mkdir_p(project_archive_path)
       FileUtils.ln_s(shared_path, shared_link_path) unless File.exists?(shared_link_path)
     end
