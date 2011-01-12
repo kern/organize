@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-$LOAD_PATH.unshift File.expand_path('../lib', __FILE__)
+$:.push File.expand_path('../lib', __FILE__)
 require 'organize/version'
 
 Gem::Specification.new do |s|
@@ -12,8 +12,7 @@ Gem::Specification.new do |s|
   s.summary     = 'Organize your Mac filesystem.'
   s.description = 'Creates directories and links to manage your Mac consistently.'
   
-  s.required_rubygems_version = '~> 1.3.6'
-  s.rubyforge_project         = 'organize'
+  s.rubyforge_project = 'organize'
   
   s.add_dependency 'optitron', '~> 0.2'
   
@@ -21,7 +20,8 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rspec',   '~> 2.4'
   s.add_development_dependency 'fakefs',  '~> 0.2'
   
-  s.files        = `git ls-files`.split("\n")
-  s.executables  = `git ls-files`.split("\n").map { |f| f[%r{^bin/(.*)}, 1] }.compact
-  s.require_path = 'lib'
+  s.files         = `git ls-files`.split("\n")
+  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.require_paths = ['lib']
 end
