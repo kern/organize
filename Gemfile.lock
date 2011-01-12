@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    organize (1.1.0)
-    optitron (~> 0.2)
+    organize (1.1.1)
+      optitron (~> 0.2)
 
 GEM
   remote: http://rubygems.org/
