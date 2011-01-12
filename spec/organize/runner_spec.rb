@@ -1,10 +1,8 @@
 require 'spec_helper'
 
 describe Organize::Runner do
-  let(:runner) { Organize::Runner }
-  subject { runner }
-  
   before do
+    @runner = Organize::Runner
     FileUtils.rm_rf '~'
     
     %w{Desktop Documents Movies Music Pictures Public Sites}.each do |directory|
@@ -13,24 +11,26 @@ describe Organize::Runner do
     end
   end
   
-  describe '#install' do
-    before { runner.dispatch(%w{install}) }
+  describe "#install" do
+    before do
+      @runner.dispatch(%w{install})
+    end
     
-    it 'should create the prefixes' do
+    it "should create the prefixes" do
       %w{Projects Dropbox}.each do |directory|
         directory = File.expand_path("~/#{directory}")
         File.directory?(directory).should be_true
       end
     end
     
-    it 'should create the Inbox and Other projects' do
+    it "should create the Inbox and Other projects" do
       %w{Inbox Other}.each do |directory|
         directory = File.expand_path("~/Projects/#{directory}")
         File.directory?(directory).should be_true
       end
     end
     
-    it 'should symlink the Other directories' do
+    it "should symlink the Other directories" do
       %w{Documents Movies Music Pictures Public Sites}.each do |directory|
         directory = File.expand_path("~/Projects/Other/#{directory}")
         File.symlink?(directory).should be_true
@@ -38,13 +38,13 @@ describe Organize::Runner do
     end
   end
   
-  describe '#create' do
+  describe "#create" do
     before do
-      runner.dispatch(%w{install})
-      runner.dispatch(%w{create Foo})
+      @runner.dispatch(%w{install})
+      @runner.dispatch(%w{create Foo})
     end
     
-    it 'should create the new project' do
+    it "should create the new project" do
       File.directory?('~/Projects/Foo').should be_true
     end
   end
